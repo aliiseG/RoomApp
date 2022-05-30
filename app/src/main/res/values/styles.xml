@@ -1,0 +1,16 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#4CAF50</item>
+        <item name="colorPrimaryDark">#8BC34A</item>
+        <item name="colorAccent">#03A9F4</item>
+    </style>
+<!--    <style name="AppThemeDark" parent="Theme.AppCompat.DayNight.DarkActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="colorPrimary">#0C0C0C</item>-->
+<!--        <item name="colorPrimaryDark">#800C0C0C</item>-->
+<!--        <item name="colorAccent">#000C51</item>-->
+<!--    </style>-->
+
+</resources>

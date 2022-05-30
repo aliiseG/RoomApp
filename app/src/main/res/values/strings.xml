@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RoomApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hint_task">Task..</string>
+    <string name="hint_deadline">Due..</string>
+    <string name="text_taskTitle">Task:</string>
+    <string name="text_taskDeadline">Deadline:</string>
+    <string name="text_taskCreatedDate">Date created:</string>
+</resources>
