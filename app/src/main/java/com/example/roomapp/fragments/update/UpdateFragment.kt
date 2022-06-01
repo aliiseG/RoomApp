@@ -1,13 +1,14 @@
 package com.example.roomapp.fragments.update
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.text.TextUtils
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-//import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.roomapp.R
@@ -15,6 +16,8 @@ import com.example.roomapp.model.Task
 import com.example.roomapp.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class UpdateFragment : Fragment() {
 
@@ -69,16 +72,59 @@ class UpdateFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_menu, menu)
+        inflater.inflate(R.menu.nav_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_delete) {
-            deleteTask()
+        when (item.itemId) {
+            (R.id.menu_delete) -> deleteTask()
+            (R.id.menu_share_task) -> {
+                shareTask()
+            }
+            (R.id.menu_task_reminder) -> {
+                val epoch = fromStringToEpoch(args.currentTask.deadline)
+                addEvent(args.currentTask.task_name, epoch, true)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
+
+    private fun fromStringToEpoch(deadline: String):Long{
+        //https://stackoverflow.com/questions/46892944/convert-string-to-epoch-time
+        val changeSymbol = deadline.replace("/", "-")
+        val formattedDate = changeSymbol + " 00:00:00.000"
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS")
+        val date: Date = dateFormat.parse(formattedDate)
+        val epoch: Long = date.getTime()
+        return epoch
+    }
+
+    private fun shareTask(){
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT, "Task name: ${args.currentTask.task_name}\n" +
+                        "Task deadline: ${args.currentTask.deadline}\n" +
+                        "Task created on: ${args.currentTask.dateCreated}"
+            )
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+    }
+
+    //https://developer.android.com/guide/components/intents-common
+    private fun addEvent(title: String, begin: Long, allDay:Boolean) {
+        val intent = Intent(Intent.ACTION_INSERT).apply {
+            data = CalendarContract.Events.CONTENT_URI
+            putExtra(CalendarContract.Events.TITLE, title)
+            putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begin+86400)
+            putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, allDay)
+        }
+        val shareIntent = Intent.createChooser(intent, null)
+            startActivity(shareIntent)
+    }
     private fun deleteTask() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->

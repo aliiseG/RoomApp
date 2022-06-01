@@ -20,6 +20,9 @@ interface TaskDao {
     suspend fun deleteAllTasks()
 
     @Query("SELECT * FROM tasks_table ORDER BY id ASC")
-    fun readAllData(): LiveData<List<Task>>
+    fun readAllDataASC(): LiveData<List<Task>>
+
+    @Query("SELECT * FROM tasks_table ORDER BY id DESC")
+    fun readAllDataDESC(): LiveData<List<Task>>
 
 }

@@ -6,7 +6,7 @@ import com.example.roomapp.model.Task
 
 class TaskRepository(private val taskDao: TaskDao) {
 
-    val readAllData: LiveData<List<Task>> = taskDao.readAllData()
+    val readAllDataASC: LiveData<List<Task>> = taskDao.readAllDataASC()
 
     suspend fun addTask(task: Task){
         taskDao.addTask(task)

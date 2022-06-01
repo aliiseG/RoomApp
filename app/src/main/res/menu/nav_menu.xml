@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_task_reminder"
+        android:icon="@drawable/ic_baseline_edit_calendar_24"
+        android:iconTint="@android:color/white"
+        android:title="DarkMode"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_share_task"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:iconTint="@android:color/white"
+        android:title="DarkMode"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/menu_delete"
+        android:title="Delete"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:iconTint="@android:color/white"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>

@@ -5,5 +5,4 @@
     <string name="text_taskTitle">Task:</string>
     <string name="text_taskDeadline">Deadline:</string>
     <string name="text_taskCreatedDate">Date created:</string>
-    <string name="button_datePick">Pick date</string>
 </resources>

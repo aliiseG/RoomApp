@@ -19,17 +19,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+<!--    android:inputType="date" android:onClick="openDatePicker"-->
 
     <EditText
         android:id="@+id/adddeadline_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="309dp"
+        android:layout_height="42dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/hint_deadline"
-        android:inputType="datetime"
+        android:focusable="false"
+
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.029"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addtask_name_et" />
 
@@ -37,10 +40,24 @@
         android:id="@+id/add_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="88dp"
         android:text="Add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adddeadline_et" />
+
+    <ImageButton
+        android:id="@+id/button_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="87dp"
+        android:src="@drawable/ic_baseline_calendar_month_24"
+        app:layout_constraintBottom_toTopOf="@+id/add_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toEndOf="@+id/adddeadline_et"
+        app:layout_constraintTop_toBottomOf="@+id/addtask_name_et" />
 </androidx.constraintlayout.widget.ConstraintLayout>
