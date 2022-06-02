@@ -14,38 +14,29 @@
         android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="@string/hint_task"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-<!--    android:inputType="date" android:onClick="openDatePicker"-->
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/adddeadline_et"
-        android:layout_width="309dp"
-        android:layout_height="42dp"
+        android:layout_width="288dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="@string/hint_deadline"
         android:focusable="false"
-
+        android:hint="@string/hint_deadline"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addtask_name_et" />
-
-    <Button
-        android:id="@+id/add_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="Add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adddeadline_et" />
-
+        app:layout_constraintTop_toBottomOf="@+id/addtask_name_et"
+        android:importantForAutofill="no"
+        android:inputType="none" />
     <ImageButton
         android:id="@+id/button_date"
         android:layout_width="wrap_content"
@@ -54,10 +45,25 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="87dp"
+        android:minHeight="48dp"
         android:src="@drawable/ic_baseline_calendar_month_24"
         app:layout_constraintBottom_toTopOf="@+id/add_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toEndOf="@+id/adddeadline_et"
-        app:layout_constraintTop_toBottomOf="@+id/addtask_name_et" />
+        app:layout_constraintTop_toBottomOf="@+id/addtask_name_et"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+        android:contentDescription="@string/button_datePick" />
+
+    <Button
+        android:id="@+id/add_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:text="@string/button_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adddeadline_et" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

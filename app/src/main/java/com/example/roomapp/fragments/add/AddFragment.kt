@@ -11,31 +11,31 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.roomapp.R
-import com.example.roomapp.calendar.DatePickerFragment
 import com.example.roomapp.model.Task
 import com.example.roomapp.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.xml.datatype.DatatypeConstants
 
 
 class AddFragment : Fragment() {
 
     private lateinit var mTaskViewModel: TaskViewModel
-    var button_date: Button? = null
-    var textview_date: EditText? = null
+    // kalendaram
     var cal = Calendar.getInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        // Inflate fragment layout
         val view = inflater.inflate(R.layout.fragment_add, container, false)
-        textview_date = this.adddeadline_et
-        button_date = this.button_date
+
+        // view model
         mTaskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+
+        // date picker dialog
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
                                    dayOfMonth: Int) {
@@ -46,12 +46,12 @@ class AddFragment : Fragment() {
             }
         }
 
-        // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
+        // onclicklistener atver kalendara dialog, kad uzspiez uz podzinas
         view.button_date.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 DatePickerDialog(requireContext(),
                     dateSetListener,
-                    // set DatePickerDialog to point to today's date when it loads up
+                    // lai raditu sodienas datumu, kad atver kalendaru
                     cal.get(Calendar.YEAR),
                     cal.get(Calendar.MONTH),
                     cal.get(Calendar.DAY_OF_MONTH)).show()
@@ -64,20 +64,21 @@ class AddFragment : Fragment() {
 
         return view
     }
-    //aizsuta tekstu uz laucinu
+    //aizsuta tekstu uz laucinu aka EditText ar "due.."
     private fun updateDateInView() {
         val myFormat = "dd/MM/yyyy" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
         adddeadline_et!!.setText(sdf.format(cal.getTime()))
     }
+    //nolasa ievadito tekstu un ievieto ka entity datubazee
     private fun insertDataToDatabase() {
-
-
         val taskName = addtask_name_et.text.toString()
         val deadline = adddeadline_et.text.toString()
+
         //https://syntaxfix.com/question/737/how-to-get-current-local-date-and-time-in-kotlin
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
+
         if(inputCheck(taskName, deadline, currentDate)){
             val task = Task(
                 0,
@@ -102,6 +103,3 @@ class AddFragment : Fragment() {
 }
 
 
-private operator fun DatatypeConstants.Field.get(monthOfYear: Int): Any? {
-    return monthOfYear
-}

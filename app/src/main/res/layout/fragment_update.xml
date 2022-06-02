@@ -14,26 +14,30 @@
         android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="@string/hint_task"
+        android:inputType="textCapSentences"
+        android:minHeight="48dp"
         android:textColor="?attr/textColorRef"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/updatedeadline_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="288dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:focusable="false"
         android:hint="@string/hint_deadline"
-        android:textColor="?attr/textColorRef"
         android:inputType="textPersonName"
+        android:textColor="?attr/textColorRef"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updatetask_name_et" />
+        app:layout_constraintTop_toBottomOf="@+id/updatetask_name_et"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/updatedateCreated_et"
@@ -47,14 +51,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/updatedeadline_et" />
 
-
+    <ImageButton
+        android:id="@+id/button_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="87dp"
+        android:contentDescription="@string/button_datePick"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_baseline_calendar_month_24"
+        app:layout_constraintBottom_toTopOf="@+id/update_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.733"
+        app:layout_constraintStart_toEndOf="@+id/updatedeadline_et"
+        app:layout_constraintTop_toBottomOf="@+id/updatetask_name_et"
+        app:layout_constraintVertical_bias="0.034"
+        tools:ignore="ImageContrastCheck" />
 
     <Button
         android:id="@+id/update_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Update"
+        android:text="@string/button_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

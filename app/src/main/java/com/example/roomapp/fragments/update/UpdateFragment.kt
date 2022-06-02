@@ -1,11 +1,16 @@
 package com.example.roomapp.fragments.update
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.text.TextUtils
 import android.view.*
+import android.widget.Button
+import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,25 +23,54 @@ import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.pm.PackageManager
+
+
+
 
 class UpdateFragment : Fragment() {
 
     private val args by navArgs<UpdateFragmentArgs>()
-
     private lateinit var mTaskViewModel: TaskViewModel
+    // kalendaram
+    var cal = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate fragment layout
         val view = inflater.inflate(R.layout.fragment_update, container, false)
 
+        // view model
         mTaskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-
+        // date picker dialog
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView()
+            }
+        }
+        // ievieto jau esosas vertibas EditText kastitees
         view.updatetask_name_et.setText(args.currentTask.task_name)
         view.updatedeadline_et.setText(args.currentTask.deadline)
         view.updatedateCreated_et.setText(args.currentTask.dateCreated)
+
+        // onclicklistener atver kalendara dialog, kad uzspiez uz podzinas
+        view.button_date.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                DatePickerDialog(requireContext(),
+                    dateSetListener,
+                    // lai raditu sodienas datumu, kad atver kalendaru
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)).show()
+            }
+
+        })
 
         view.update_btn.setOnClickListener {
             updateItem()
@@ -46,6 +80,11 @@ class UpdateFragment : Fragment() {
         setHasOptionsMenu(true)
 
         return view
+    }
+    private fun updateDateInView() {
+        val myFormat = "dd/MM/yyyy" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+        updatedeadline_et!!.setText(sdf.format(cal.getTime()))
     }
 
     private fun updateItem() {
@@ -78,9 +117,7 @@ class UpdateFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             (R.id.menu_delete) -> deleteTask()
-            (R.id.menu_share_task) -> {
-                shareTask()
-            }
+            (R.id.menu_share_task) -> shareTask()
             (R.id.menu_task_reminder) -> {
                 val epoch = fromStringToEpoch(args.currentTask.deadline)
                 addEvent(args.currentTask.task_name, epoch, true)
@@ -89,17 +126,18 @@ class UpdateFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-
+    //metode, lai parveidotu datumu uz epoch sekundem prieks event create
     private fun fromStringToEpoch(deadline: String):Long{
-        //https://stackoverflow.com/questions/46892944/convert-string-to-epoch-time
+        // https://stackoverflow.com/questions/46892944/convert-string-to-epoch-time
         val changeSymbol = deadline.replace("/", "-")
         val formattedDate = changeSymbol + " 00:00:00.000"
         val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS")
-        val date: Date = dateFormat.parse(formattedDate)
+        val date: Date = dateFormat.parse(formattedDate)!!
         val epoch: Long = date.getTime()
         return epoch
     }
 
+    //metode, ar ko var sharot task
     private fun shareTask(){
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -111,10 +149,13 @@ class UpdateFragment : Fragment() {
             type = "text/plain"
         }
         val shareIntent = Intent.createChooser(sendIntent, null)
+        //nestrada diemzel
+        shareIntent.apply{putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, "com.example.roomapp")}
         startActivity(shareIntent)
     }
 
-    //https://developer.android.com/guide/components/intents-common
+    // (ar menu kalendara podzinu) veido  kalendara event ar konkrēto task
+    // https://developer.android.com/guide/components/intents-common
     private fun addEvent(title: String, begin: Long, allDay:Boolean) {
         val intent = Intent(Intent.ACTION_INSERT).apply {
             data = CalendarContract.Events.CONTENT_URI
@@ -125,6 +166,7 @@ class UpdateFragment : Fragment() {
         val shareIntent = Intent.createChooser(intent, null)
             startActivity(shareIntent)
     }
+    // (ar menu podzinu) izdzest konkrēto task
     private fun deleteTask() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->

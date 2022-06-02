@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="?attr/cardStyle"
-
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/cardStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rowLayout"
@@ -14,7 +13,7 @@
         <TextView
             android:id="@+id/task_name_txt"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:textSize="24sp"
             android:textColor="?attr/textColorRef"
@@ -31,7 +30,6 @@
             android:layout_marginTop="8dp"
             android:textColor="?attr/textColorRef"
             android:ems="10"
-            android:inputType="textPersonName"
             android:text="@string/text_taskTitle"
             android:textAlignment="viewEnd"
             android:textStyle="italic"
@@ -46,7 +44,6 @@
             android:layout_marginTop="24dp"
             android:textColor="?attr/textColorRef"
             android:ems="10"
-            android:inputType="textPersonName"
             android:text="@string/text_taskCreatedDate"
             android:textAlignment="viewEnd"
             android:textStyle="italic"
@@ -61,7 +58,6 @@
             android:layout_marginTop="24dp"
             android:textColor="?attr/textColorRef"
             android:ems="10"
-            android:inputType="textPersonName"
             android:text="@string/text_taskDeadline"
             android:textAlignment="viewEnd"
             android:textStyle="italic"
@@ -100,10 +96,12 @@
             android:layout_height="49dp"
             android:layout_marginStart="2dp"
             android:layout_marginBottom="24dp"
-            app:tint="?attr/tickColor"
+            android:contentDescription="@string/tick_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="?android:attr/textCheckMark" />
+            app:srcCompat="?android:attr/textCheckMark"
+            app:tint="?attr/tickColor"
+            tools:ignore="ImageContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -3,7 +3,6 @@
     <attr format="reference" name="cardStyle"/>
     <attr format="reference" name="textColorRef"/>
     <attr format="reference" name="tickColor"/>
-    <attr format="reference" name="starFillRef"/>
     <attr format="reference" name="themeChangeID"/>
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
@@ -14,9 +13,6 @@
         <item name="cardStyle">@style/CustomCardView.light</item>
         <item name="textColorRef">@color/colorText</item>
         <item name="tickColor">@color/colorText</item>
-        <item name="starFillRef">@drawable/ic_baseline_star_border_24</item>
-
-
     </style>
 
     <style name = "CustomCardView.light" parent="CardView">

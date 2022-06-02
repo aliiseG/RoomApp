@@ -3,20 +3,16 @@
     <attr format="reference" name="cardStyle"/>
     <attr format="reference" name="textColorRef"/>
     <attr format="reference" name="tickColor"/>
-    <attr format="reference" name="starFillRef"/>
     <attr format="reference" name="themeChangeID"/>
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <!-- Light theme. -->
+        <!-- Dark theme. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="cardStyle">@style/CustomCardView.dark</item>
         <item name="textColorRef">@color/colorText</item>
         <item name="tickColor">@color/colorText</item>
-        <item name="starFillRef">@drawable/ic_baseline_star_24</item>
-
-
     </style>
 
     <style name = "CustomCardView.light" parent="CardView">
